@@ -6,6 +6,18 @@
 ## has more thorough IDE-specific entries.
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/Dotnet.gitignore
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
 
 # Build results
 [Dd]ebug/
@@ -20,6 +32,7 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+[Oo]ut/
 [Ll]og/
 [Ll]ogs/
 
@@ -30,6 +43,11 @@ artifacts/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
+
+**/UsersAPI/src/Logs/logs/*
+!**/UsersAPI/src/logs/.gitkeep
+**/NotificationAPI/src/Logs/logs/*
+!**/NotificationAPI/src/logs/.gitkeep
 
 # NuGet Packages
 *.nupkg
