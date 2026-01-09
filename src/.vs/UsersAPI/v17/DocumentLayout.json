@@ -1,0 +1,83 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{47E7AE3B-5C31-4EC8-A540-35EA128F588E}|UsersAPI.Api\\UsersAPI.Api.csproj|c:\\git\\postechfiap\\techchallengefase2\\fase2-usersapi\\src\\usersapi.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47E7AE3B-5C31-4EC8-A540-35EA128F588E}|UsersAPI.Api\\UsersAPI.Api.csproj|solutionrelative:usersapi.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47E7AE3B-5C31-4EC8-A540-35EA128F588E}|UsersAPI.Api\\UsersAPI.Api.csproj|c:\\git\\postechfiap\\techchallengefase2\\fase2-usersapi\\src\\usersapi.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{47E7AE3B-5C31-4EC8-A540-35EA128F588E}|UsersAPI.Api\\UsersAPI.Api.csproj|solutionrelative:usersapi.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47E7AE3B-5C31-4EC8-A540-35EA128F588E}|UsersAPI.Api\\UsersAPI.Api.csproj|c:\\git\\postechfiap\\techchallengefase2\\fase2-usersapi\\src\\usersapi.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47E7AE3B-5C31-4EC8-A540-35EA128F588E}|UsersAPI.Api\\UsersAPI.Api.csproj|solutionrelative:usersapi.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\UsersAPI.Api\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "UsersAPI.Api\\appsettings.Development.json",
+              "ToolTip": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\UsersAPI.Api\\appsettings.Development.json",
+              "RelativeToolTip": "UsersAPI.Api\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-08T23:00:19.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\UsersAPI.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "UsersAPI.Api\\appsettings.json",
+              "ToolTip": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\UsersAPI.Api\\appsettings.json",
+              "RelativeToolTip": "UsersAPI.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-08T22:58:24.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\UsersAPI.Api\\Program.cs",
+              "RelativeDocumentMoniker": "UsersAPI.Api\\Program.cs",
+              "ToolTip": "C:\\git\\PostechFiap\\TechChallengeFase2\\Fase2-UsersAPI\\src\\UsersAPI.Api\\Program.cs",
+              "RelativeToolTip": "UsersAPI.Api\\Program.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAGgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-08T22:57:30.003Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1883,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

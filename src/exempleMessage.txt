@@ -1,0 +1,42 @@
+Exchange	Shared.Contracts.Events:UserCreatedIntegrationEvent
+Routing Key	
+Redelivered	○
+Properties	
+message_id:	01000000-26da-b5fa-8031-08de4e45d051
+delivery_mode:	2
+headers:	
+x-dotnet-pub-seq-no:	2
+content_type:	application/vnd.masstransit+json
+
+{
+  "messageId": "01000000-26da-b5fa-8031-08de4e45d051",
+  "requestId": null,
+  "correlationId": null,
+  "conversationId": "01000000-26da-b5fa-8b1e-08de4e45d051",
+  "initiatorId": null,
+  "sourceAddress": "rabbitmq://rabbitmq/54079d9a65d7_UsersAPIApi_bus_yryyyybg5k49i1ejbdxrhtm4f3?temporary=true",
+  "destinationAddress": "rabbitmq://rabbitmq/Shared.Contracts.Events:UserCreatedIntegrationEvent",
+  "responseAddress": null,
+  "faultAddress": null,
+  "messageType": [
+    "urn:message:Shared.Contracts.Events:UserCreatedIntegrationEvent"
+  ],
+  "message": {
+    "userId": "3d8b9004-6f0a-4c29-80bf-de951716755f",
+    "email": "another4@another.com",
+    "occurredAt": "2026-01-07T23:38:08.7877551Z"
+  },
+  "expirationTime": null,
+  "sentTime": "2026-01-07T23:38:08.7901233Z",
+  "headers": {},
+  "host": {
+    "machineName": "54079d9a65d7",
+    "processName": "UsersAPI.Api",
+    "processId": 1,
+    "assembly": "UsersAPI.Api",
+    "assemblyVersion": "1.0.0.0",
+    "frameworkVersion": "9.0.11",
+    "massTransitVersion": "8.5.7.0",
+    "operatingSystemVersion": "Unix 5.15.146.1"
+  }
+}
