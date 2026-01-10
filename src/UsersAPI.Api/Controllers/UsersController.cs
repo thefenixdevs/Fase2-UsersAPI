@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UsersAPI.Api.Common.Extensions;
 using UsersAPI.Application.DTOs.CreateUser;
 using UsersAPI.Application.UseCases.CreateUser;
 
@@ -39,11 +40,34 @@ public class UsersController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Retorna informações do usuário autenticado
+    /// </summary>
     [Authorize]
     [HttpGet("me")]
+    [ProducesResponseType(typeof(UserInfoResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public IActionResult Me()
     {
-        return Ok(new { Message = "Authenticated!" });
+        try
+        {
+            var response = new UserInfoResponse
+            {
+                UserId = User.GetUserId(),
+                Name = User.GetName(),
+                Email = User.GetEmail(),
+                Role = User.GetRole()
+            };
+
+            return Ok(response);
+        }
+        catch (InvalidOperationException)
+        {
+            return Unauthorized(new
+            {
+                Message = "Invalid token: missing required claims"
+            });
+        }
     }
 
 }

@@ -10,10 +10,8 @@ public class User : BaseEntity
     public string PasswordHash { get; private set; }
     public UserRole Role { get; private set; }
 
-    // 🔹 Construtor exclusivo para EF Core
     protected User() { }
 
-    // 🔹 Construtor de domínio
     public User(string name, Email email, string passwordHash, UserRole role = 0)
         : base()
     {
