@@ -16,6 +16,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Application.Tests", "UsersAPI.Application.Tests\UsersAPI.Application.Tests.csproj", "{5D4E4013-B43E-C7DC-AE90-D0D710F18634}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{07F63953-50DA-44B6-A690-493CE95FD7F1}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgres", "postgres", "{AE2814EC-5FC8-4516-9CA0-D587BED97F9B}"
 	ProjectSection(SolutionItems) = preProject
