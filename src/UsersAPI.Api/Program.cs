@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -11,6 +12,7 @@ using UsersAPI.Application;
 using UsersAPI.Infrastructure;
 using UsersAPI.Infrastructure.Persistence;
 using UsersAPI.Infrastructure.Persistence.Seed;
+using HealthChecks.UI.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,9 +101,36 @@ builder.Services.AddMassTransit(x =>
             h.Password(builder.Configuration["RabbitMQ:Password"]);
         });
 
+        // Configure explicit publication of UserCreatedIntegrationEvent
+        cfg.Message<Shared.Contracts.Events.UserCreatedIntegrationEvent>(m =>
+        {
+            m.SetEntityName("fcg.user-created-event");
+        });
+
         cfg.ConfigureEndpoints(context);
     });
 });
+
+// Add Health Checks
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var rabbitMqHost = builder.Configuration["RabbitMQ:Host"] ?? "localhost";
+var rabbitMqPort = builder.Configuration["RabbitMQ:Port"] ?? "5672";
+var rabbitMqUsername = builder.Configuration["RabbitMQ:Username"] ?? "guest";
+var rabbitMqPassword = builder.Configuration["RabbitMQ:Password"] ?? "guest";
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(connectionString!, name: "postgresql")
+    .AddRabbitMQ(_ =>
+    {
+        var factory = new RabbitMQ.Client.ConnectionFactory
+        {
+            HostName = rabbitMqHost,
+            Port = int.Parse(rabbitMqPort),
+            UserName = rabbitMqUsername,
+            Password = rabbitMqPassword
+        };
+        return factory.CreateConnectionAsync().GetAwaiter().GetResult();
+    }, name: "rabbitmq");
 
 var app = builder.Build();
 
@@ -127,9 +156,11 @@ if (!app.Environment.IsEnvironment("Test"))
     AdminUserSeeder.Seed(db);
 }
 
-if (app.Environment.IsDevelopment() && !app.Environment.IsEnvironment("Test"))
+// Enable Swagger in all environments (except Test) for Gateway aggregation
+if (!app.Environment.IsEnvironment("Test"))
 {
     app.UseSwagger();
+    // Enable SwaggerUI in all environments (including K8s) for direct access
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "UsersAPI v1");
@@ -145,6 +176,11 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.MapControllers();
 

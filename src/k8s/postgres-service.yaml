@@ -1,3 +1,5 @@
+# ⚠️ ATENÇÃO: Esta configuração é APENAS para desenvolvimento local/testes isolados
+# NÃO use em produção! Para produção, use Fase2-Orchestrator/k8s/postgres-users/
 apiVersion: v1
 kind: Service
 metadata:
