@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: usersapi-deployment
+  name: usersapi
   labels:
     app: usersapi
   namespace: gamestore
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: usersapi
-          image: usersapi-api:8
+          image: usersapi-api:1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
