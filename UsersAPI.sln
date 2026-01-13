@@ -1,19 +1,19 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Domain", "UsersAPI.Domain\UsersAPI.Domain.csproj", "{14936EE0-06F2-4CFB-A92F-A19D24F17C06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Domain", "src\UsersAPI.Domain\UsersAPI.Domain.csproj", "{14936EE0-06F2-4CFB-A92F-A19D24F17C06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Application", "UsersAPI.Application\UsersAPI.Application.csproj", "{94AE0E41-CDA2-48DA-BB8B-3C2B22CB6165}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Application", "src\UsersAPI.Application\UsersAPI.Application.csproj", "{94AE0E41-CDA2-48DA-BB8B-3C2B22CB6165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Infrastructure", "UsersAPI.Infrastructure\UsersAPI.Infrastructure.csproj", "{C211A957-7CE2-426A-AD66-725A8C88EDB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Infrastructure", "src\UsersAPI.Infrastructure\UsersAPI.Infrastructure.csproj", "{C211A957-7CE2-426A-AD66-725A8C88EDB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Api", "UsersAPI.Api\UsersAPI.Api.csproj", "{47E7AE3B-5C31-4EC8-A540-35EA128F588E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Api", "src\UsersAPI.Api\UsersAPI.Api.csproj", "{47E7AE3B-5C31-4EC8-A540-35EA128F588E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Application.Tests", "UsersAPI.Application.Tests\UsersAPI.Application.Tests.csproj", "{5D4E4013-B43E-C7DC-AE90-D0D710F18634}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Application.Tests", "src\UsersAPI.Application.Tests\UsersAPI.Application.Tests.csproj", "{5D4E4013-B43E-C7DC-AE90-D0D710F18634}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{07F63953-50DA-44B6-A690-493CE95FD7F1}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,11 +34,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.IntegrationTests", "UsersAPI.IntegrationTests\UsersAPI.IntegrationTests.csproj", "{1C8B5DFD-06E8-44C7-B290-D09441792814}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.IntegrationTests", "src\UsersAPI.IntegrationTests\UsersAPI.IntegrationTests.csproj", "{1C8B5DFD-06E8-44C7-B290-D09441792814}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Domain.Tests", "UsersAPI.Domain.Tests\UsersAPI.Domain.Tests.csproj", "{9004B1CB-7383-48F8-82CC-A20DE1A747B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAPI.Domain.Tests", "src\UsersAPI.Domain.Tests\UsersAPI.Domain.Tests.csproj", "{9004B1CB-7383-48F8-82CC-A20DE1A747B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{A0A88DD9-0E24-40CE-96F8-85A0C7F65774}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{A0A88DD9-0E24-40CE-96F8-85A0C7F65774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
