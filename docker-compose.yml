@@ -68,7 +68,7 @@ services:
       - "5000:8080"
       - "5001:8443"
     volumes:
-      - ./Logs:/app/Logs
+      - ./src/UsersAPI.Api/Logs:/app/Logs
 
 volumes:
   postgres_data:
