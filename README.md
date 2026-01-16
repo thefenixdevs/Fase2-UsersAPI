@@ -1,54 +1,75 @@
 # UsersAPI
 
-## Visão Geral
+Microsserviço responsável pelo **gerenciamento de usuários** e pela **publicação de eventos de domínio** (UserCreatedEvent) utilizados por outros microsserviços, especialmente para envio de e-mail de boas-vindas. 
 
-A **UsersAPI** é o microsserviço responsável pelo gerenciamento de usuários na plataforma **FIAP Cloud Games (FCG)**. Suas responsabilidades incluem o cadastro de usuários, autenticação com geração de token JWT e autorização para acesso aos demais serviços do ecossistema.
+## Índice
 
-Este serviço faz parte da refatoração de uma arquitetura monolítica para uma **arquitetura de microsserviços orientada a eventos**, conforme definido no Tech Challenge da Fase 2.
-
----
-
-## Responsabilidades do Serviço
-
-* Cadastro de novos usuários
-* Autenticação de usuários
-* Geração de tokens JWT
-* Publicação de eventos de domínio relacionados a usuários
-
-### Evento Publicado
-
-* **UserCreatedEvent**
-  Publicado após o cadastro bem-sucedido de um usuário. Este evento é consumido pelo microsserviço de **Notificações**, que realiza o envio (simulado) do e-mail de boas-vindas.
+1. Visão Geral
+2. Responsabilidades do Serviço
+3. Arquitetura e Tecnologias
+4. Comunicação Assíncrona
+5. Estrutura do Projeto
+6. Endpoints Disponíveis
+7. Variáveis de Ambiente
+8. Execução (Local, Docker, Kubernetes)
+9. Considerações Acadêmicas
 
 ---
 
-## Arquitetura e Tecnologias
+## 1. Visão Geral
 
-* **Plataforma:** .NET 9.0
-* **Arquitetura:** Microsserviços orientados a eventos
-* **Mensageria:** RabbitMQ
-* **Biblioteca de Mensageria:** MassTransit
-* **Banco de Dados:** PostgreSQL
-* **Containerização:** Docker (multi-stage build)
-* **Orquestração:** Kubernetes (Docker Desktop)
+O **UsersAPI** é um microsserviço desenvolvido com arquitetura orientada a eventos para:
 
----
+* **Cadastrar usuários** no sistema;
+* **Autenticar usuários** (em integrações com outros serviços, quando aplicável);
+* **Publicar eventos** quando um usuário é criado, acionando microsserviços dependentes (ex.: NotificationsAPI). 
 
-## Comunicação Assíncrona
-
-A comunicação entre os microsserviços ocorre de forma assíncrona utilizando RabbitMQ como broker de mensagens. O MassTransit é responsável por abstrair a comunicação, garantindo desacoplamento, confiabilidade e facilidade de manutenção.
-
-Fluxo relacionado a este serviço:
-
-1. O usuário é cadastrado via endpoint da UsersAPI.
-2. A UsersAPI publica o evento **UserCreatedEvent** no broker.
-3. O NotificationsAPI consome o evento e executa o envio do e-mail de boas-vindas.
+Este serviço faz parte da arquitetura de microsserviços implmentada no projeto da **Fase 2 – Tech Challenge** e é integrado ao ecossistema de serviços via **RabbitMQ/MassTransit**. 
 
 ---
 
-## Estrutura do Projeto
+## 2. Responsabilidades do Serviço
 
-```
+* Cadastro de novos usuários;
+* Emissão de event UserCreatedEvent após cadastro bem-sucedido;
+* Gerenciamento das operações necessárias para a autenticação/autorização do usuário;
+* Publicação de eventos para consumo por outros microsserviços (ex.: NotificationsAPI). 
+
+---
+
+## 3. Arquitetura e Tecnologias
+
+**Plataforma e linguagem:**
+
+* .NET 9.0
+* C#
+
+**Padrões e ferramentas:**
+
+* Microsserviços orientados a eventos
+* Mensageria com **RabbitMQ**
+* **MassTransit** para abstração de mensageria
+* **PostgreSQL** como datastore
+* **Docker** para containerização
+* **Kubernetes** para orquestração (manifestos incluídos) 
+
+---
+
+## 4. Comunicação Assíncrona
+
+A UsersAPI publica eventos assíncronos para que outros microsserviços reajam com base nas mudanças de estado dos usuários. O fluxo principal é:
+
+1. Um novo usuário é cadastrado via endpoint da API;
+2. A API publica um evento de domínio chamado **UserCreatedEvent** no broker;
+3. Outros serviços (ex.: **NotificationsAPI**) consomem este evento para realizar ações (como envio de e-mail de boas-vindas). 
+
+---
+
+## 5. Estrutura do Projeto
+
+Estrutura típica do repositório:
+
+````
 UsersAPI
 ├── src
 │   ├── UsersAPI
@@ -65,56 +86,91 @@ UsersAPI
 ├── Dockerfile
 ├── docker-compose.yml
 └── README.md
-```
+````
 
 ---
 
-## Variáveis de Ambiente
+## 6. Endpoints Disponíveis
 
-As configurações do serviço são gerenciadas via **ConfigMaps** e **Secrets** no Kubernetes.
+> **Observação:** Os nomes exatos dos endpoints dependem da implementação interna (Controllers). Abaixo estão os principais esperados para cadastro e consulta de usuário.
 
-### ConfigMap
+| Verbo HTTP | Endpoint | Autenticação | Descrição |
+|------------|----------|--------------|-----------|
+| POST | `/api/users` | Não | Cadastrar novo usuário |
+| GET | `/api/users/{id}` | Sim (quando aplicável) | Consultar dados do usuário |
+| POST | `/api/auth/login` | Não | Autenticar usuário (token JWT) |
+| GET | Auto-documentação /health | Não | Health check |
+| GET | Swagger UI | Não | Documentação interativa |
 
-* `RABBITMQ_HOST`
-* `RABBITMQ_QUEUE_USER_CREATED`
-* `JWT_ISSUER`
-* `JWT_AUDIENCE`
-
-### Secrets
-
-* `POSTGRES_CONNECTION_STRING`
-* `JWT_SECRET_KEY`
+*(Adapte estes endpoints conforme implementação real de controllers no projeto)*
 
 ---
 
-## Execução Local com Docker
+## 7. Variáveis de Ambiente
 
-Para executar o serviço localmente utilizando Docker:
+Configure as variáveis abaixo via **ConfigMap** e **Secrets** no Kubernetes ou via ambiente local:
 
-```bash
-docker build -t users-api .
-docker run -p 5000:8080 users-api
-```
+**ConfigMap (não sensíveis):**
+- `RABBITMQ_HOST`
+- `RABBITMQ_QUEUE_USER_CREATED`
+- `JWT_ISSUER`
+- `JWT_AUDIENCE`
 
-Ou, quando integrado ao ambiente completo:
+**Secrets (sensíveis):**
+- `POSTGRES_CONNECTION_STRING`
+- `JWT_SECRET_KEY`
 
-```bash
-docker-compose up
-```
+**Observações:**
+- O `POSTGRES_CONNECTION_STRING` deve apontar para a instância de PostgreSQL utilizada pela API.
+- `JWT_SECRET_KEY` é utilizado para assinatura/validação de tokens JWT.
 
 ---
 
-## Deploy no Kubernetes (Docker Desktop)
+## 8. Execução
 
-Certifique-se de que o Kubernetes do Docker Desktop esteja habilitado.
+### 8.1 Locally (Desenvolvimento)
 
-Aplicar os manifestos:
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/thefenixdevs/Fase2-UsersAPI.git
+
+
+2. Configure as variáveis de ambiente no seu ambiente de desenvolvimento.
+3. Execute via .NET:
+
+   ```bash
+   dotnet restore
+   dotnet build
+   dotnet run --project src/UsersAPI/UsersAPI.csproj
+   ```
+
+### 8.2 Docker
+
+1. Construa a imagem:
+
+   ```bash
+   docker build -t users-api .
+   ```
+2. Execute o container:
+
+   ```bash
+   docker run -p 5000:8080 users-api
+   ```
+3. Quando integrado ao ambiente completo:
+
+   ```bash
+   docker-compose up
+   ```
+
+### 8.3 Kubernetes
+
+Certifique-se de que o Kubernetes do seu ambiente (ex.: Docker Desktop) esteja habilitado. Aplique os manifests:
 
 ```bash
 kubectl apply -f k8s/
 ```
 
-Verificar se o pod está em execução:
+Verifique os pods em execução:
 
 ```bash
 kubectl get pods
@@ -122,13 +178,13 @@ kubectl get pods
 
 ---
 
-## Considerações Acadêmicas
+## 9. Considerações Acadêmicas
 
-Este microsserviço foi desenvolvido com foco educacional, aplicando conceitos de:
+Este microsserviço foi desenvolvido com foco educacional e abrange de forma completa os principais padrões esperados na certificação da **Fase 2** do desafio FIAP:
 
-* Separação de responsabilidades
-* Arquitetura orientada a eventos
-* Comunicação assíncrona
-* Containerização e orquestração
+* **Orientação a eventos e comunicação assíncrona**;
+* **Mensageria com RabbitMQ e MassTransit**;
+* **Containerização e orquestração com Kubernetes**;
+* **Separação de responsabilidades e arquitetura modular**. 
 
-Atendendo integralmente aos requisitos propostos no **Tech Challenge – Fase 2** da FIAP.
+---
