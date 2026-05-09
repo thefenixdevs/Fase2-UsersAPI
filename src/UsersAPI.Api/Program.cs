@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Serilog;
 using System.Security.Claims;
 using System.Text;
@@ -70,21 +70,19 @@ builder.Services.AddSwaggerGen(options =>
         Description = "Enter 'Bearer {token}'"
     });
 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
     {
         {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
+            new OpenApiSecuritySchemeReference("Bearer", document, null),
+            new List<string>()
         }
     });
 });
+
+var rabbitMqHost = builder.Configuration["RabbitMQ:Host"] ?? "localhost";
+var rabbitMqPort = builder.Configuration["RabbitMQ:Port"] ?? "5672";
+var rabbitMqUsername = builder.Configuration["RabbitMQ:Username"] ?? string.Empty;
+var rabbitMqPassword = builder.Configuration["RabbitMQ:Password"] ?? string.Empty;
 
 builder.Services.AddMassTransit(x =>
 {
@@ -92,13 +90,10 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
-        var rabbitHost = builder.Configuration["RabbitMQ:Host"];
-        var rabbitPort = ushort.Parse(builder.Configuration["RabbitMQ:Port"]);
-
-        cfg.Host(host: rabbitHost, port: rabbitPort, virtualHost: "/", h =>
+        cfg.Host(host: rabbitMqHost, port: ushort.Parse(rabbitMqPort), virtualHost: "/", h =>
         {
-            h.Username(builder.Configuration["RabbitMQ:Username"]);
-            h.Password(builder.Configuration["RabbitMQ:Password"]);
+            h.Username(rabbitMqUsername);
+            h.Password(rabbitMqPassword);
         });
 
         // Configure explicit publication of UserCreatedIntegrationEvent
@@ -113,10 +108,6 @@ builder.Services.AddMassTransit(x =>
 
 // Add Health Checks
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var rabbitMqHost = builder.Configuration["RabbitMQ:Host"] ?? "localhost";
-var rabbitMqPort = builder.Configuration["RabbitMQ:Port"] ?? "5672";
-var rabbitMqUsername = builder.Configuration["RabbitMQ:Username"] ?? "guest";
-var rabbitMqPassword = builder.Configuration["RabbitMQ:Password"] ?? "guest";
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(connectionString!, name: "postgresql")
